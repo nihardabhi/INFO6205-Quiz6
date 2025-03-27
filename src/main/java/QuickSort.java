@@ -19,14 +19,39 @@ public class QuickSort {
 
     // quicksort the subarray from a[lo] to a[hi]
     private static void sort(Comparable[] a, int lo, int hi) {
+        //if low is greater than high we are done with sorting no more sorting occured
         if (hi <= lo) return;
-       //Student TODO
+        //started divide array and get index called j
+        int j = partition(a, lo, hi);
+        sort(a, lo, j - 1);
+        sort(a, j + 1, hi);
     }
 
-    // partition the subarray a[lo..hi] so that a[lo..j-1] <= a[j] <= a[j+1..hi]
-    // and return the index j.
+
     private static int partition(Comparable[] a, int lo, int hi) {
-        //Student TODO
+        int i = lo, j = hi + 1;
+        Comparable v = a[lo];
+        while (true) {
+            // try to find the element on left to swap
+            while (less(a[++i], v)) {
+                //if current pointer i is equal to "hi" break to prevent error
+                if (i == hi) break;
+            }
+
+            // try to find element on right to swap
+            while (less(v, a[--j])) {
+                //if current pointer i is equal to "lo" break to prevent error
+                if (j == lo) break;
+            }
+
+            // if pointer cross each other we do not want that
+            if (i >= j) break;
+            exch(a, i, j);
+        }
+        
+        // Swap with partitioning item
+        exch(a, lo, j);
+        return j;
     }
 
     
